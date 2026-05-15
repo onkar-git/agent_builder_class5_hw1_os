@@ -65,7 +65,13 @@ USER: What was the total payload for the first successful SpaceX flight?
 --- step 2: final answer ---
 The total payload for the first successful SpaceX flight was 70,505 kg.
 
- Deconstructing the Agent's FailuresThe Math Over-Trigger (The "Total" Trap)What happened: The agent saw the word "total" and immediately generated a SUM(payload_kg) function.Why it failed: By grouping all successful rows together into a single sum, the ORDER BY and LIMIT 1 clauses became completely useless. A SQL SUM() without a GROUP BY collapses the entire dataset into one row, meaning it summed every single successful launch in the database rather than looking at the first one.Entity BlindnessWhat happened: The agent completely ignored the word "SpaceX" in its SQL query. It did not filter by customer = 'SpaceX' or search for "Falcon" in the vehicle column.
+ Deconstructing the Agent's Failures:
+ 
+ The Math Over-Trigger (The "Total" Trap)What happened: The agent saw the word "total" and immediately generated a SUM(payload_kg) function.Why it failed: By grouping all successful rows together into a single sum, the ORDER BY and LIMIT 1 clauses became completely useless. 
+ 
+ A SQL SUM() without a GROUP BY collapses the entire dataset into one row, meaning it summed every single successful launch in the database rather than looking at the first one.
+ 
+ Entity BlindnessWhat happened: The agent completely ignored the word "SpaceX" in its SQL query. It did not filter by customer = 'SpaceX' or search for "Falcon" in the vehicle column.
 
 ====================================================================================================
 
